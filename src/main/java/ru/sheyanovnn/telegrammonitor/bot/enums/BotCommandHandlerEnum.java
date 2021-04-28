@@ -2,25 +2,30 @@ package ru.sheyanovnn.telegrammonitor.bot.enums;
 
 
 import ru.sheyanovnn.telegrammonitor.bot.handlers.commandhandlers.DefaultCommandHandler;
-import ru.sheyanovnn.telegrammonitor.bot.handlers.commandhandlers.GetChatIdHandler;
+import ru.sheyanovnn.telegrammonitor.bot.handlers.commandhandlers.GetChatIdCommandHandler;
+import ru.sheyanovnn.telegrammonitor.bot.handlers.commandhandlers.HelpCommandHandler;
 
 import java.util.stream.Stream;
 
 public enum BotCommandHandlerEnum {
 
     // Без обработчика
-    Empty("", null),
-    // Обработчик команды получить id группового чата
-    GetChatId("/get_chat_id", GetChatIdHandler.class);
+    Empty("", null, null),
+    // Обработчик команды help
+    Help("/help", HelpCommandHandler.class, "Список команд"),
+    // Обработчик команды получить id чата
+    GetChatId("/get_chat_id", GetChatIdCommandHandler.class, "Получение ID чата");
 
     private static final String BOT_USERNAME = "@SandboxMonitorBot";
-    String command;
-    Class<? extends DefaultCommandHandler> handlerClass;
+    private String command;
+    private Class<? extends DefaultCommandHandler> handlerClass;
+    private String description;
 
     <T extends DefaultCommandHandler>
-    BotCommandHandlerEnum(String command, Class<T> handlerClass) {
+    BotCommandHandlerEnum(String command, Class<T> handlerClass, String description) {
         this.command = command;
         this.handlerClass = handlerClass;
+        this.description = description;
     }
 
     /**
@@ -42,8 +47,12 @@ public enum BotCommandHandlerEnum {
         return handlerClass;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     /**
-     * Проверка команды написанной в чат, а также с непосредственным обращением к боту
+     * Проверка команды написанной в чат, включая непосредственное обращение к боту
      * @param command - текстовое представление команды
      */
     private boolean equalsCommand(String command) {

@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
 @Service
-public class GetChatIdHandler implements DefaultCommandHandler {
+public class GetChatIdCommandHandler implements DefaultCommandHandler {
 
     @Override
     public String handleCommand(Message message) {
