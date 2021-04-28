@@ -13,6 +13,7 @@ public enum BotCommandHandlerEnum {
     // Обработчик команды получить id группового чата
     GetChatId("/get_chat_id", GetChatIdHandler.class);
 
+    private static final String BOT_USERNAME = "@SandboxMonitorBot";
     String command;
     Class<? extends DefaultCommandHandler> handlerClass;
 
@@ -29,7 +30,7 @@ public enum BotCommandHandlerEnum {
      */
     public static BotCommandHandlerEnum getHandler(String command) {
         return Stream.of(BotCommandHandlerEnum.values())
-                .filter(e -> e.command.equals(command))
+                .filter(e -> e.equalsCommand(command))
                 .findFirst().orElse(Empty);
     }
 
@@ -39,5 +40,14 @@ public enum BotCommandHandlerEnum {
 
     public Class<? extends DefaultCommandHandler> getHandlerClass() {
         return handlerClass;
+    }
+
+    /**
+     * Проверка команды написанной в чат, а также с непосредственным обращением к боту
+     * @param command - текстовое представление команды
+     */
+    private boolean equalsCommand(String command) {
+        String namedHandlerCommand = this.command + BOT_USERNAME;
+        return this.command.equals(command) || namedHandlerCommand.equals(command);
     }
 }

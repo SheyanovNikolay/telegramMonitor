@@ -37,9 +37,11 @@ public class BotHandler {
      */
     public void handleUpdate(Update update) {
         Message message = update.getMessage();
-        if (message != null && message.hasText()) {
+        if (message.hasText()) {
             handleInputMessage(message);
+            return;
         }
+        deleteInvalidMessage(message);
     }
 
     /**
@@ -50,8 +52,7 @@ public class BotHandler {
 
         // Если входящее сообщение не является ни одной из обрабатываемых команд
         if (handlerEnum.equals(BotCommandHandlerEnum.Empty)) {
-            DeleteMessage deleteMessage = new DeleteMessage().setChatId(chatId).setMessageId(message.getMessageId());
-            deleting(deleteMessage);
+            deleteInvalidMessage(message);
             return;
         }
 
@@ -63,7 +64,7 @@ public class BotHandler {
             replyMessage.setText(handlingResult);
             sending(replyMessage);
         } catch (Exception e) {
-            log.error(e);
+            log.error("Error while handle command: " +e);
         }
     }
 
@@ -74,6 +75,14 @@ public class BotHandler {
         SendMessage sendMessage = new SendMessage().setChatId(chatId);
         sendMessage.setText(status);
         sending(sendMessage);
+    }
+
+    /**
+     * Удаление сообщений не являющихся командами
+     **/
+    private void deleteInvalidMessage(Message message) {
+        DeleteMessage deleteMessage = new DeleteMessage().setChatId(message.getChatId()).setMessageId(message.getMessageId());
+        deleting(deleteMessage);
     }
 
     private void sending(SendMessage message) {
