@@ -1,27 +1,18 @@
 package ru.sheyanovnn.telegrammonitor.bot.handlers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
 import ru.sheyanovnn.telegrammonitor.bot.events.ListenersStatusEvent;
 
 import java.util.Date;
 
-@Service
-@EnableScheduling
 public class ScheduleService {
 
-    // Время между оповещениями в мс
-    private static final long DELAY_TIME = 24 * 60 * 60 * 1000;
-
+    @Autowired
     private ApplicationEventPublisher publisher;
 
-    public ScheduleService(ApplicationEventPublisher publisher) {
-        this.publisher = publisher;
-    }
-
-    @Scheduled(fixedDelay = DELAY_TIME)
+    @Scheduled(fixedDelayString = "${telegram.delay}")
     public void sendListenersStatus() {
         // TODO здесь вызов метода на сборку инфы о листенерах
         // пока посидит пусть
