@@ -1,6 +1,5 @@
-package ru.iteco.telegrambot.bot;
+package ru.iteco.telegrambot.bot.config;
 
-import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,7 +8,6 @@ import ru.iteco.telegrambot.bot.handlers.ScheduleService;
 
 @Configuration
 @EnableScheduling
-@SpringBootConfiguration
 public class ScheduleServiceConfig {
 
     @Bean

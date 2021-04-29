@@ -6,7 +6,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import ru.iteco.telegrambot.bot.events.ListenersStatusEvent;
+import ru.iteco.telegrambot.bot.events.CommandResultEvent;
 import ru.iteco.telegrambot.bot.handlers.BotHandler;
 
 /**
@@ -14,7 +14,7 @@ import ru.iteco.telegrambot.bot.handlers.BotHandler;
  * Главный listener событий телеграм бота
  */
 @Component
-public class TelegramBot extends TelegramLongPollingBot implements ApplicationListener<ListenersStatusEvent> {
+public class TelegramBot extends TelegramLongPollingBot implements ApplicationListener<CommandResultEvent> {
 
     @Value("${telegram.username}")
     private String username;
@@ -48,12 +48,11 @@ public class TelegramBot extends TelegramLongPollingBot implements ApplicationLi
     }
 
     /**
-     * Прослушивание сообщения от Scheduler'а,
-     * на возникновение события сбора информации о статусах Listener'ов
-     * @param listenersStatusEvent - событие, содержащее информацию о статусах Listener'ов
+     * Прослушивание сообщений о выполнении обработки команд
+     * @param commandResultEvent - событие, содержащее информацию о результатах выполнении команды
      */
     @Override
-    public void onApplicationEvent(@NonNull ListenersStatusEvent listenersStatusEvent) {
-        botHandler.sendListenersStatus(listenersStatusEvent.getListenersStatus());
+    public void onApplicationEvent(@NonNull CommandResultEvent commandResultEvent) {
+        botHandler.sendCommandResult(commandResultEvent.getCommandResult());
     }
 }

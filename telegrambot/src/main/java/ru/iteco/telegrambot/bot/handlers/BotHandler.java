@@ -71,9 +71,9 @@ public class BotHandler {
     /**
      * Отправка сообщения о статусах Listener'ов в групповой чат
      */
-    public void sendListenersStatus(String status) {
+    public void sendCommandResult(String result) {
         SendMessage sendMessage = new SendMessage().setChatId(chatId);
-        sendMessage.setText(status);
+        sendMessage.setText(result);
         sending(sendMessage);
     }
 
