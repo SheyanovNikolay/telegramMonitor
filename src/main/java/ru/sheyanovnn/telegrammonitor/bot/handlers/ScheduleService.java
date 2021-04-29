@@ -6,7 +6,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import ru.sheyanovnn.telegrammonitor.bot.events.ListenersStatusEvent;
 
 import java.util.Date;
-import java.util.Map;
 
 public class ScheduleService {
 
@@ -17,10 +16,9 @@ public class ScheduleService {
     public void sendListenersStatus() {
         // TODO здесь вызов метода на сборку инфы о листенерах
         // пока посидит пусть
+        // Место публикация события задания, в дальшейшем доделать
         Date date = new Date();
         String status = "Status at :" + date;
         publisher.publishEvent(new ListenersStatusEvent(this, status));
     }
-
-    public abstract Map<String, Boolean> checkListeners()
 }
