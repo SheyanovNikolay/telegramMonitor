@@ -2,6 +2,7 @@ HELP.md
 /target/
 /log/
 /out/
+/demo/out/
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
