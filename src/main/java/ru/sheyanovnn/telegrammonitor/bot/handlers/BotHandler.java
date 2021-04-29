@@ -64,7 +64,7 @@ public class BotHandler {
             replyMessage.setText(handlingResult);
             sending(replyMessage);
         } catch (Exception e) {
-            log.error("Error while handle command: " +e);
+            log.error("Error while handle command: ", e);
         }
     }
 
@@ -89,7 +89,7 @@ public class BotHandler {
         try {
             bot.execute(message);
         } catch (TelegramApiException ex) {
-            log.error("Error while sending message: " + ex);
+            log.error("Error while sending message: ", ex);
         }
     }
 
@@ -97,7 +97,7 @@ public class BotHandler {
         try {
             bot.execute(deleteMessage);
         } catch (TelegramApiException ex) {
-            log.error("Error while deleting message: " + ex);
+            log.error("Error while deleting message: ", ex);
         }
     }
 }

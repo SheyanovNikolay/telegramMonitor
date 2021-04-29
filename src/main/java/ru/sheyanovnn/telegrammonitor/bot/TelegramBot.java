@@ -2,11 +2,14 @@ package ru.sheyanovnn.telegrammonitor.bot;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import ru.sheyanovnn.telegrammonitor.bot.events.ListenersStatusEvent;
 import ru.sheyanovnn.telegrammonitor.bot.handlers.BotHandler;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * Класс, реализующий телеграм бота
@@ -52,7 +55,7 @@ public class TelegramBot extends TelegramLongPollingBot implements ApplicationLi
      * @param listenersStatusEvent - событие, содержащее информацию о статусах Listener'ов
      */
     @Override
-    public void onApplicationEvent(ListenersStatusEvent listenersStatusEvent) {
+    public void onApplicationEvent(@NonNull ListenersStatusEvent listenersStatusEvent) {
         botHandler.sendListenersStatus(listenersStatusEvent.getListenersStatus());
     }
 }
