@@ -19,7 +19,7 @@
     <dependencies>
         <dependency>
             <groupId>ru.iteco</groupId>
-            <artifactId>telegramm</artifactId>
+            <artifactId>telegrambot</artifactId>
             <version>1.0-SNAPSHOT</version>
             <!--<scope>compile</scope>-->
         </dependency>

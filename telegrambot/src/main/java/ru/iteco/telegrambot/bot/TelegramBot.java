@@ -1,9 +1,9 @@
 package ru.iteco.telegrambot.bot;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
 import org.springframework.lang.NonNull;
-import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import ru.iteco.telegrambot.bot.events.CommandResultEvent;
@@ -13,7 +13,6 @@ import ru.iteco.telegrambot.bot.handlers.BotHandler;
  * Класс, реализующий телеграм бота
  * Главный listener событий телеграм бота
  */
-@Component
 public class TelegramBot extends TelegramLongPollingBot implements ApplicationListener<CommandResultEvent> {
 
     @Value("${telegram.username}")
@@ -22,11 +21,8 @@ public class TelegramBot extends TelegramLongPollingBot implements ApplicationLi
     @Value("${telegram.token}")
     private String token;
 
+    @Autowired
     private BotHandler botHandler;
-
-    public TelegramBot(BotHandler botHandler) {
-        this.botHandler = botHandler;
-    }
 
     @Override
     public String getBotToken() {

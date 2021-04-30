@@ -15,7 +15,15 @@ public class TelegramBotSender {
     @Autowired
     ApplicationEventPublisher publisher;
 
-    public void send(){
-        publisher.publishEvent(new CommandResultEvent(this, "Test demo message!!!"));
+    public void send(String message){
+        publisher.publishEvent(new CommandResultEvent(this, message));
+
+        while (true) {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
