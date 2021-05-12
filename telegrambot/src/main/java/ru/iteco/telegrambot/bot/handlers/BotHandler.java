@@ -26,10 +26,12 @@ public class BotHandler {
 
     private TelegramBot bot;
     private ApplicationContext context;
+    private BotCommandEnumService botCommandEnumService;
 
-    public BotHandler(@Lazy TelegramBot bot, ApplicationContext context) {
+    public BotHandler(@Lazy TelegramBot bot, ApplicationContext context, BotCommandEnumService botCommandEnumService) {
         this.bot = bot;
         this.context = context;
+        this.botCommandEnumService = botCommandEnumService;
     }
 
     /**
@@ -48,7 +50,7 @@ public class BotHandler {
      * Обработка команд телеграм бота
      * */
     private void handleInputMessage(Message message) {
-        BotCommandHandlerEnum handlerEnum = BotCommandHandlerEnum.getHandler(message.getText());
+        BotCommandHandlerEnum handlerEnum = botCommandEnumService.getHandler(message.getText());
 
         // Если входящее сообщение не является ни одной из обрабатываемых команд
         if (handlerEnum.equals(BotCommandHandlerEnum.Empty)) {
@@ -60,6 +62,10 @@ public class BotHandler {
         try {
             DefaultCommandHandler handler = context.getBean(handlerEnum.getHandlerClass());
             String handlingResult = handler.handleCommand(message);
+            // handlingResult == null означает, что выполнение команды отправлено событием в удаленный обработчик
+            if (handlingResult == null) {
+                return;
+            }
             SendMessage replyMessage = new SendMessage().setChatId(message.getChatId());
             replyMessage.setText(handlingResult);
             sending(replyMessage);

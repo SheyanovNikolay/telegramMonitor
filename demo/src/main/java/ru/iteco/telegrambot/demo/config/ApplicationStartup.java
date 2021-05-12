@@ -10,7 +10,6 @@ import ru.iteco.telegrambot.demo.service.TelegramBotSender;
 /**
  * Обработчик событий готовности приложения
  */
-
 @Component
 public class ApplicationStartup {
 

@@ -12,7 +12,7 @@ public class ScheduleService {
     private ApplicationEventPublisher publisher;
 
     @Scheduled(fixedDelayString = "${telegram.delay}")
-    public void sendListenersStatus() {
+    public void sendGetListenersStatusCommand() {
         publisher.publishEvent(new CommandTaskEvent(this, BotCommandHandlerEnum.GetListenersStatus));
     }
 }

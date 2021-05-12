@@ -6,8 +6,9 @@ import ru.iteco.telegrambot.bot.handlers.commandhandlers.GetChatIdCommandHandler
 import ru.iteco.telegrambot.bot.handlers.commandhandlers.GetListenersStatusCommandHandler;
 import ru.iteco.telegrambot.bot.handlers.commandhandlers.HelpCommandHandler;
 
-import java.util.stream.Stream;
-
+/**
+ * Перечесление всех комманд, обрабатываемых ботом
+ **/
 public enum BotCommandHandlerEnum {
 
     // Без обработчика
@@ -19,7 +20,6 @@ public enum BotCommandHandlerEnum {
     // Обработчик команды получить состояние статусов listener'ов
     GetListenersStatus("/get_listeners_status", GetListenersStatusCommandHandler.class, "Получение статусов работы listener'ов");
 
-    private static final String BOT_USERNAME = "@SandboxMonitorBot";
     private String command;
     private Class<? extends DefaultCommandHandler> handlerClass;
     private String description;
@@ -29,17 +29,6 @@ public enum BotCommandHandlerEnum {
         this.command = command;
         this.handlerClass = handlerClass;
         this.description = description;
-    }
-
-    /**
-     * Получение информации о обработчике команды телеграм бота
-     * @param command - текстовое представление команды
-     * @return Данные обработчика
-     */
-    public static BotCommandHandlerEnum getHandler(String command) {
-        return Stream.of(BotCommandHandlerEnum.values())
-                .filter(e -> e.equalsCommand(command))
-                .findFirst().orElse(Empty);
     }
 
     public String getCommand() {
@@ -52,14 +41,5 @@ public enum BotCommandHandlerEnum {
 
     public String getDescription() {
         return description;
-    }
-
-    /**
-     * Проверка команды написанной в чат, включая непосредственное обращение к боту
-     * @param command - текстовое представление команды
-     */
-    private boolean equalsCommand(String command) {
-        String namedHandlerCommand = this.command + BOT_USERNAME;
-        return this.command.equals(command) || namedHandlerCommand.equals(command);
     }
 }
