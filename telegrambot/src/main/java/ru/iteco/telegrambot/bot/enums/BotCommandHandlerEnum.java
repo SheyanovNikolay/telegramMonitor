@@ -1,10 +1,7 @@
 package ru.iteco.telegrambot.bot.enums;
 
 
-import ru.iteco.telegrambot.bot.handlers.commandhandlers.DefaultCommandHandler;
-import ru.iteco.telegrambot.bot.handlers.commandhandlers.GetChatIdCommandHandler;
-import ru.iteco.telegrambot.bot.handlers.commandhandlers.GetListenersStatusCommandHandler;
-import ru.iteco.telegrambot.bot.handlers.commandhandlers.HelpCommandHandler;
+import ru.iteco.telegrambot.bot.handlers.commandhandlers.*;
 
 /**
  * Перечесление всех комманд, обрабатываемых ботом
@@ -15,6 +12,8 @@ public enum BotCommandHandlerEnum {
     Empty("", null, null),
     // Обработчик команды help
     Help("/help", HelpCommandHandler.class, "Список команд"),
+    // Обработчик команды start
+    Start("/start", StartCommandHandler.class, "Начало работы"),
     // Обработчик команды получить id чата
     GetChatId("/get_chat_id", GetChatIdCommandHandler.class, "Получение ID чата"),
     // Обработчик команды получить состояние статусов listener'ов
