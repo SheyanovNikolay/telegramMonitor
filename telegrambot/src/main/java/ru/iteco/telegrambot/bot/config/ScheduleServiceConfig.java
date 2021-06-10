@@ -11,7 +11,7 @@ import ru.iteco.telegrambot.bot.handlers.ScheduleService;
 public class ScheduleServiceConfig {
 
     @Bean
-    @ConditionalOnProperty(value = "telegram.enabled")
+    @ConditionalOnProperty(value = "telegram.scheduler.enabled")
     public ScheduleService scheduleService() {
         return new ScheduleService();
     }
